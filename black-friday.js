@@ -12,6 +12,8 @@ function render(){var n=q?now:Date.now();if(n>=start||live){txt.innerHTML="<b>BL
 else{txt.innerHTML="<b>BLACK FRIDAY</b> starter om <span aria-live='off'>"+fmt(start-n)+"</span> · <a href='/black-friday' style='color:#fff'>Se kampanjevarene</a>";}}
 render();if(!live&&!q)setInterval(render,1000);
 document.body.insertBefore(bar,document.body.firstChild);
+var FP={"tykk-dunjakke-til-barn-14474614": [779, 623], "sekskantet-slottstelt-for-inne-og-ute-13799933": [599, 479], "varmt-fleecesett-med-hettegenser-til-barn-16029671": [579, 463], "strikket-svopeteppe-med-volang-til-nyfodt-16025337": [569, 455], "gaveeske-med-klaer-til-nyfodt-17264307": [569, 455], "sengehimmel-i-blonder-14056941": [489, 391], "prinsessekjole-til-babyjente-bursdag-og-fest-13985138": [469, 375], "klessett-til-baby-9964534a": [469, 375], "regndress-i-ett-til-barn-med-motiv-7d8d52f7": [409, 327], "musselinteppe-i-bambus-og-bomull-120-x-120-cm-15093719": [419, 335], "vinterdress-til-baby-og-barn-med-votter-011eb2f2": [409, 327], "vinterdress-til-baby-ad0e6462": [389, 311], "langermet-pyjamas-til-smabarn-14007217": [359, 287], "svopeteppe-til-nyfodt-fin-som-gave-15649306": [349, 279], "fleecejakke-med-glidelas-til-barn-14183951": [349, 279]};/*fp*/
+(function(){var m=location.pathname.match(/^\/p\/([^\/?#]+)/);if(!m||!live)return;var f=FP[m[1]];var pe=document.querySelector('.pp-price');if(!f||!pe)return;pe.innerHTML="<span style='color:#b91c1c'>"+f[1]+" kr</span> <small style='font-size:14px;font-weight:400;color:#555'>med koden "+B.code+" · Førpris (laveste pris siste 30 dager): <s>"+f[0]+" kr</s></small>";})();
 if(/\/black-friday/.test(location.pathname))return;
 var KEY="bf2026_popup_closed";try{if(localStorage.getItem(KEY))return;}catch(e){}
 setTimeout(function(){
