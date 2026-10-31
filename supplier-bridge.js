@@ -1,5 +1,3 @@
-/* Nordic supplier bridge: CJ / Printify / Gelato / Printful catalogs load in parallel and are shown together as one
-   storefront grid ("Alle produkter"). Each source is rendered as soon as it arrives; supplier data stays internal. */
 (function () {
   "use strict";
 
@@ -9,7 +7,6 @@
     gelato: "/api/gelato-products",
     printful: "/api/printful-products"
   };
-  /** CJ search keywords → Printify/Gelato/Printful sector keys */
   const POD_QUERY_ALIAS = {
     "phone accessories": "electronics",
     "mobile accessories": "electronics",
@@ -41,10 +38,8 @@
   const ID_BASE = { cj: 10001, printify: 20001, gelato: 30001, printful: 40001 };
   /** A slow supplier endpoint never blocks the grid: after this many ms its local fallback is used instead. */
   const SOURCE_TIMEOUT_MS = 8000;
-  /** Gelato (live prices from the Gelato API) loads in the background and may take longer; it never delays readiness. */
   const BACKGROUND_TIMEOUT_MS = 30000;
   const BACKGROUND_SOURCES = ["gelato"];
-  /* Owner decision 2026-10-17: only the store's real CJ products are shown; Printify/Gelato/Printful (POD merch) are off. */
   const SOURCE_ORDER = ["cj"];
   /** Customer-facing (Norwegian) names for supplier category values. Per-store overrides: config.catMap. */
   const CAT_NB = {
@@ -122,10 +117,6 @@
     return titlesReady;
   }
 
-  /**
-   * Customer-facing Norwegian titles. CJ winners already ship Norwegian names;
-   * Printify/Printful often return English — never show those as-is.
-   */
   function toNorwegianTitle(raw, meta) {
     const id = meta && (meta.id || meta.externalId || meta.gelatoProductUid || meta.printfulProductId || meta.printifyProductId);
     const sku = meta && meta.sku;
@@ -245,8 +236,6 @@
     const nok = priceNok(item);
     const baseId = ID_BASE[provider] || 90001;
     const rawId = item.id != null ? String(item.id) : "";
-    /* UI ids must be exact numbers. Long supplier ids (19-digit CJ pids) are never rounded:
-       the UI uses their last 15 digits and the full id stays a string in externalId / cjPid. */
     const tail = /^\d+$/.test(rawId) ? (Number.isSafeInteger(Number(rawId)) ? Number(rawId) : Number(rawId.slice(-15))) : 0;
     const numericId = tail > 0 ? tail : null;
     const rawName = item.name || item.nameEn || "";
@@ -309,7 +298,6 @@
     }
   }
 
-  /* Items whose name matches config.cjExclude are hidden unless CJ reports a CE certification (store setting). */
   function cjAllowed(config) {
     if (!config || !config.cjExclude) return () => true;
     const rx = new RegExp(config.cjExclude, "i");
@@ -338,7 +326,7 @@
     } finally {
       clearTimeout(timer);
     }
-    if (config.cjLocalFallback === false) return []; // store sells CJ winners only (no generic local fallback)
+    if (config.cjLocalFallback === false) return [];
     const localItems = await loadJson(LOCAL_FILES.cj);
     return localItems.filter(allowed).map((item, index) => curated(item, index, config.category, "cj")).filter(item => item.base > 0).slice(0, 150);
   }
@@ -350,7 +338,6 @@
     if (apiItems.length) {
       return apiItems.map((item, index) => curated({ ...item, provider }, index, category, provider)).filter(item => item.base > 0).slice(0, 50);
     }
-    // Printify may still use curated selected JSON. Gelato/Printful NEVER use *-selected clones.
     if (provider === "printify") {
       const selected = await loadJson(LOCAL_FILES.printify);
       if (selected.length) {
@@ -382,7 +369,6 @@
     return list;
   }
 
-  /* Printful/Gelato categories are product-type names ("All-Over Print Tote Bag"): group them by keyword. */
   const POD_CAT_RULES = [
     [/\b(mugs?|cups?|tumblers?|bottles?)\b/i, "Krus"],
     [/\b(posters?|prints?|canvas|framed|wall art)\b/i, "Plakater"],
@@ -403,7 +389,6 @@
     const raw = String(item.cat || "").trim();
     const key = raw.toLowerCase();
     if (cfg.catMap && cfg.catMap[key]) return cfg.catMap[key];
-    /* CJ "category" is only the store sector / search word (e.g. "beauty"): use the store's own category name. */
     if (provider === "cj" || !key || key === String(cfg.query || "").toLowerCase() || key === podQuery(cfg.query)) return cfg.category || raw;
     if (CAT_NB[key]) return CAT_NB[key];
     if (provider === "printful" || provider === "gelato") return podCategory(item);
@@ -470,12 +455,11 @@
     const query = cfg.query || "";
     await loadNorwegianTitles();
     const keep = storefrontItem();
-    /* Gelato often returns 503 / empty products[] without a store ID — never block the grid. */
     const gelatoLoader = cfg.gelato === false
       ? Promise.resolve([])
       : loadPodCatalog("gelato", category, query).catch(() => []);
     const loaders = {
-      cj: cfg.cj === false ? Promise.resolve([]) : loadCjSelected(cfg), // store opted out of CJ: no request
+      cj: cfg.cj === false ? Promise.resolve([]) : loadCjSelected(cfg),
       printify: cfg.printify === false ? Promise.resolve([]) : loadPodCatalog("printify", category, query),
       gelato: gelatoLoader,
       printful: cfg.printful === false ? Promise.resolve([]) : loadPodCatalog("printful", category, query)
