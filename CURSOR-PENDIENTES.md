@@ -41,3 +41,19 @@ Auditoría 2026-10-23 en la rama `cursor/ludispel-no-auditoria-2026-10`. Nada de
 - `index.html` cargado en Chrome headless con servidor estático: sin errores de JavaScript. Solo 404 de `/api/cj-products` y `/api/newsletter` (Pages Functions, no existen en un servidor estático local; esperado).
 - `node --check` en los `.js` de la raíz: OK. No hay `package.json` ni build.
 - Búsqueda de claves `sk_live_`/`sk_test_`/`ghp_`/`EAA`: vacía. `create-checkout-session.ts` sin cambios respecto a `main`.
+
+## 2026-10-31 — rama `i18n-4-sprak-2026-10-31` (sin fusionar ni desplegar)
+
+Hecho:
+- 4 idiomas: NO (por defecto), EN, SV, PL. `/i18n.js` + `/i18n/{en,sv,pl}.js`, selector NO/EN/SV/PL en todas las páginas (incl. /p/<slug> y baja del boletín), guardado en localStorage, `<html lang>` correcto, `?lang=` funciona. /terms y /privacy → `?lang=en` y `#en` sigue activando inglés.
+- Traducción automática (Argos) de páginas, legales, textos de JS/checkout y nombres/descripciones de producto. **Necesita revisión humana.**
+- Fuera español/Perú/EU (PEN, soles, IGV, S/, €) en páginas, JS y plantillas de email; tienda solo Noruega/NOK.
+- README.md, STRIPE-SETUP.md, supplier-config.json, docs/ → 404 (functions/_middleware.ts). brand = nombre de tienda en functions y catalog-data; sin campo supplier en catalog/*.json; comentarios con proveedores fuera.
+- Texto de envío solo para proveedores con enabled:true.
+- Juguetes para perro CJWJWJMR01035 (AF653B8B-…) y CJMR1028991 (1367424723176263680): ya estaban en HIDDEN; quitados de BF_ELIGIBLE (id y sku).
+- Verificado en Chrome headless (escritorio + móvil, 4 idiomas): 0 errores JS, 0 imágenes rotas, selector en todas las páginas, lang correcto. 0 enlaces internos rotos, node --check y esbuild OK.
+
+Pendiente:
+- Stripe Checkout sigue en noruego/automático (no se tocó create-checkout-session.ts).
+- Emails (marketing-templates.ts) quedan solo en noruego (se quitó el español); hace falta re-ejecutar /api/marketing?setup=1 tras el despliegue para actualizar Brevo. Emails de pedido de Make no están en el repo.
+- pricing.ts / provider-orders.ts / create-checkout-session.ts aún contienen lógica PE/EU (servidor de checkout, no tocado por la regla de Stripe).

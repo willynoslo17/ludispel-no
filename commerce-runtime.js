@@ -73,7 +73,6 @@
     return productById(id);
   }
 
-  /* Saved cart lines whose product has not loaded yet (background suppliers such as Gelato). */
   let pendingCart = {};
 
   function saveCartSoon() {
@@ -186,7 +185,7 @@
     }
     let form = document.getElementById("checkoutForm");
     if (!form) {
-      document.body.insertAdjacentHTML("beforeend", '<div class="nordic-info" id="checkoutModal"><section class="nordic-info-card"><button type="button" id="checkoutClose">Lukk</button><h2>Leveringsopplysninger</h2><form id="checkoutForm" class="formgrid"><input required name="name" placeholder="Fullt navn"><input required type="email" name="email" placeholder="E-post"><input required name="phone" placeholder="Telefon"><input required name="city" placeholder="Sted"><input required class="full" name="address" placeholder="Adresse"><select required name="country" class="full"><option value="Norway">Norge</option><option value="Europe">Europa</option></select><button class="checkout full" type="submit">GÅ TIL BETALING</button></form><div id="success" style="display:none"></div></section></div>');
+      document.body.insertAdjacentHTML("beforeend", '<div class="nordic-info" id="checkoutModal"><section class="nordic-info-card"><button type="button" id="checkoutClose">Lukk</button><h2>Leveringsopplysninger</h2><form id="checkoutForm" class="formgrid"><input required name="name" placeholder="Fullt navn"><input required type="email" name="email" placeholder="E-post"><input required name="phone" placeholder="Telefon"><input required name="city" placeholder="Sted"><input required class="full" name="address" placeholder="Adresse"><select required name="country" class="full"><option value="Norway">Norge</option></select><button class="checkout full" type="submit">GÅ TIL BETALING</button></form><div id="success" style="display:none"></div></section></div>');
       form = document.getElementById("checkoutForm");
       document.getElementById("checkoutClose").onclick = () => document.getElementById("checkoutModal").classList.remove("open");
     }
