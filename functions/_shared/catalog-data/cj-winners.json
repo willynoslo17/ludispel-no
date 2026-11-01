@@ -88,6 +88,8 @@
     "kids musical instrument toy"
   ],
   "pids": [
+    "1408018741505167360",
+    "2607020933141615900",
     "1569949194096889856",
     "1569944667624984576",
     "1569942683131990016",
@@ -1645,6 +1647,30 @@
       "image": "https://cf.cjdropshipping.com/1624070972418.jpg",
       "supplierPriceMaxUsd": 18.1112,
       "keyword": "kids play tent"
+    },
+    {
+      "id": "2607020933141615900",
+      "sku": "CJYD296469001AZ",
+      "name": "Retningsspill i tre – match piler og farger (3+)",
+      "nameEn": "Wooden Toy For Childrenfun Arrow-shaped Cognitive Matching Toy That Develops Hand-eye Coordination",
+      "category": "Leker",
+      "image": "https://cf.cjdropshipping.com/quick/product/46e0d127-7a02-4c55-8efd-c379c18ec154.jpg",
+      "supplierPriceMaxUsd": 1.74,
+      "keyword": "",
+      "description": "Pedagogisk treleke der barnet matcher piler og farger etter oppgavekort. Trener retningssans, logikk og hånd-øye-koordinasjon. Alder 3–6 år. CE etter leketøydirektivet 2009/48/EF, testet etter EN 71-1, EN 71-2 og EN 71-3 (modell HB-0004).",
+      "certified": "2026-11-01"
+    },
+    {
+      "id": "1408018741505167360",
+      "sku": "CJCC119018401AZ",
+      "name": "Magnetiske byggeklosser med magnetstaver (25–64 deler)",
+      "nameEn": "Assembled Magnetic Building Blocks Toy Early Education",
+      "category": "Leker",
+      "image": "https://cf.cjdropshipping.com/8e03860b-ddaa-4992-94c9-198e47bbd011.png",
+      "supplierPriceMaxUsd": 13.38,
+      "keyword": "",
+      "description": "Store, fargerike magnetstaver og -klosser for kreativ bygging. Velg 25, 36, 42 eller 64 deler. Fra 3 år. CE etter leketøydirektivet 2009/48/EF, testet etter EN 71-1, EN 71-2 og EN 71-3 (YY-136–YY-139).",
+      "certified": "2026-11-01"
     }
   ]
 }
