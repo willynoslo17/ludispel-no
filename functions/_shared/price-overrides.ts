@@ -1,7 +1,7 @@
 /** Norway market price matching (2026-10-30). Keys are CJ product ids (pid).
  * PRICE_OVERRIDE: regular NOK price aligned to the Norwegian market, never below the profit floor.
  * HIDDEN: profit floor is above the Norwegian market price -> product is hidden (not deleted). */
-export const PRICE_OVERRIDE: Record<string, number> = {"1379993362186244096": 599, "7D8D52F7-6815-4FCC-AE7B-18BD84060A29": 409, "2607020933141615900": 179, "1408018741505167360": 149};
+export const PRICE_OVERRIDE: Record<string, number> = {"1379993362186244096": 599, "7D8D52F7-6815-4FCC-AE7B-18BD84060A29": 409, "2607020933141615900": 179, "1408018741505167360": 149, "2408230256271623000": 179};
 /* 2026-10-30: products without required certification removed from store (owner order). */
 /* 2026-10-31: second certification review (owner order) - more items hidden. */
 /* 2026-10-31 (sincert): owner order - only products with a confirmed certificate may be shown. */
@@ -10,13 +10,13 @@ export const HIDDEN = new Set<string>(["11963239-AD02-494F-AB19-6467BAE276E5", "
 /* 2026-10-31 (sincert): CERT_ONLY = true -> ONLY ids listed in CERTIFIED are shown/sellable (all providers: CJ, Printify, Printful, Gelato).
  * Restore per SKU with /workspace/negocios/restaurar_por_sku.py (adds the id here and removes it from HIDDEN). */
 export const CERT_ONLY = true;
-export const CERTIFIED = new Set<string>(["2607020933141615900", "1408018741505167360"]);
+export const CERTIFIED = new Set<string>(["2607020933141615900", "1408018741505167360", "2408230256271623000"]);
 
 /* 2026-11-01 owner rule: price under the cheapest comparable Norwegian product (total incl. 79 kr shipping), always with profit. Per CJ variant (vid). */
-export const VARIANT_PRICE: Record<string, number> = {"2607020933141617600": 179, "1408018742981562368": 149, "1408018742994145280": 199, "1408018743002533888": 209, "1408018743010922496": 319};
+export const VARIANT_PRICE: Record<string, number> = {"2607020933141617600": 179, "1408018742981562368": 149, "1408018742994145280": 199, "1408018743002533888": 209, "1408018743010922496": 319, "2408230256271623200": 179, "2408230256271623300": 179, "2408230256271623500": 179, "2408230256271623600": 179, "2408230256271623800": 179};
 
 /* 2026-11-01: CJ variants NOT sold because the certificate does not cover that model / plug type (US/UK/AU) / unknown set content. */
-export const EXCLUDED_VIDS = new Set<string>([]);
+export const EXCLUDED_VIDS = new Set<string>(["2408230256271624000", "2408230256271624100", "2408230256271624300"]);
 
 /* 2026-11-01: variant used when a checkout line has no vid (must be a certified, sellable variant). */
-export const DEFAULT_VID: Record<string, string> = {"2607020933141615900": "2607020933141617600", "1408018741505167360": "1408018742981562368"};
+export const DEFAULT_VID: Record<string, string> = {"2607020933141615900": "2607020933141617600", "1408018741505167360": "1408018742981562368", "2408230256271623000": "2408230256271623200"};

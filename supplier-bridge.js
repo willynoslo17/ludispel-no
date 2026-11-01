@@ -413,7 +413,7 @@
   /* Storefront rule: image required; hide non-toy POD junk (magnets, decals, luggage tags, AirPods cases). */
   /* 2026-10-31 (sincert): only products with a confirmed certificate are shown. Restore with restaurar_por_sku.py. */
   const NORDIC_CERT_ONLY = true;
-  const NORDIC_CERTIFIED = new Set(["2607020933141615900", "CJYD296469001AZ", "1408018741505167360", "CJCC119018401AZ"]);
+  const NORDIC_CERTIFIED = new Set(["2607020933141615900", "CJYD296469001AZ", "1408018741505167360", "CJCC119018401AZ", "2408230256271623000", "CJYD211794201AZ"]);
   function certified(item) { return !NORDIC_CERT_ONLY || [item.externalId, item.cjPid, item.id, item.sku].some(v => v != null && NORDIC_CERTIFIED.has(String(v))); }
   function storefrontItem() {
     return item => Boolean(item && item.image && !isHiddenProduct(item) && certified(item));
