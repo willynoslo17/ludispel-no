@@ -17,7 +17,7 @@
  */
 import CONFIG from "./catalog-data/cj-winners.json";
 
-type Snapshot = { id: string; sku?: string; name: string; nameEn?: string; category?: string; image: string; supplierPriceMaxUsd: number; keyword?: string };
+type Snapshot = { id: string; sku?: string; name: string; nameEn?: string; category?: string; image: string; supplierPriceMaxUsd: number; keyword?: string; description?: string };
 type WinnersConfig = {
   keywords?: string[];
   pids?: string[];
